@@ -453,8 +453,11 @@ function Quest:wildBattle()
 	elseif getMapName() == "Route 18" then
 		return  attack()  or relog(5,"Relogging...") or run() or sendAnyPokemon()
 	elseif self:isTrainingOver() then
-		return run() or sendUsablePokemon() or sendAnyPokemon()or attack()
-	--elseif getOpponentName() == "Snubbull" then
+		if sys.canRun == true then
+			return run()
+		end
+		return attack() or sendUsablePokemon() or sendAnyPokemon() or game.useAnyMove() or run()
+		--elseif getOpponentName() == "Snubbull" then
 		--return run() or sendUsablePokemon() or sendAnyPokemon()or attack()
 	else
 		return  attack()  or sendUsablePokemon() or run() or sendAnyPokemon()
