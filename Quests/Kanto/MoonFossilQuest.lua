@@ -111,27 +111,40 @@ function MoonFossilQuest:Route4()
 end
 
 function MoonFossilQuest:PokecenterRoute3()
-	if    getPokemonName(1) ~= "Bulbasaur" and getPokemonName(1) ~= "Ivysaur"   and  not hasItem("HM05 - Flash")  then
-		if isPCOpen() then
-			if isCurrentPCBoxRefreshed() then
-				return depositPokemonToPC(1)
-			else
-				return
-			end
-		else
-			return usePC()
-		end
-	elseif  getTeamSize() >=2 and not hasItem("HM03 - Surf") then
-				if isPCOpen() then
-					if isCurrentPCBoxRefreshed() then
-							return depositPokemonToPC(2)
-					else
-						return
-					end
-				else
-					return usePC()
-				end
-				
+    if  getTeamSize() >= 1 and  getPokemonName(1) ~= "Bulbasaur" and getPokemonName(1) ~= "Ivysaur" and getPokemonName(1) ~= "Venusaur"   and  not hasItem("HM05 - Flash")  then
+        if isPCOpen() then
+            if isCurrentPCBoxRefreshed() then
+                return depositPokemonToPC(1)
+            else
+                return
+            end
+        else
+            return usePC()
+        end
+    elseif  getTeamSize() >=2 and not hasItem("HM03 - Surf") then
+        if isPCOpen() then
+            if isCurrentPCBoxRefreshed() then
+                    return depositPokemonToPC(2)
+            else
+                return
+            end
+        else
+            return usePC()
+        end
+    elseif getTeamSize() < 1 then
+        if isPCOpen() then
+            if isCurrentPCBoxRefreshed() then
+                log("box count:"..getPCBoxCount())
+                log("pokemon count:"..getPCPokemonCount())
+                log("getCurrentPCBoxId count:"..getCurrentPCBoxId())
+                log("getCurrentPCBoxSize count:"..getCurrentPCBoxSize())
+                return withdrawPokemonFromPC(getCurrentPCBoxId(), getCurrentPCBoxSize())
+            else
+                return
+            end
+        else
+            return usePC()
+        end
 	else
 		self:pokecenter("Route 3")
 	end
