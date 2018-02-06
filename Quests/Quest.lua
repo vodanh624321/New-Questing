@@ -551,7 +551,15 @@ local hmMoves = {
 
 
 function Quest:learningMove(moveName, pokemonIndex)
-	return forgetAnyMoveExcept({"Leech Seed", "Shadow Ball", "Dark Pulse", "Surf", "Hex", "Air Slash", "Cut", "Acrobatics", "Poison Fang", "Thunderbolt", "Sleep Powder",  "Petal Dance",}) 
+	if moveName == "Growl" or moveName == "Sweet Scent" or moveName == "Growth" or moveName == "Worry Seed"
+		or moveName == "Synthesis" or moveName == "Seed Bomb" then
+		return
+	end
+
+	if getPokemonLevel(pokemonIndex) < 32 then
+		return forgetAnyMoveExcept({"Leech Seed", "Sleep Powder",  "Petal Dance", 'Mega Drain', 'Giga Drain', 'Razor Leaf', "Shadow Ball", "Dark Pulse", "Surf", "Hex", "Thunderbolt"}) 
+	end
+	return forgetAnyMoveExcept({"Leech Seed", "Shadow Ball", "Dark Pulse", "Surf", "Hex", "Air Slash", "Cut", "Acrobatics", "Poison Fang", "Thunderbolt", "Sleep Powder",  "Petal Dance"}) 
 end
 
 return Quest
